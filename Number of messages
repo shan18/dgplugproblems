@@ -1,0 +1,15 @@
+''' Read the log:
+https://www.dgplug.org/irclogs/2016/Logs-2016-07-25-16-01.txt
+and print the number of times a user has sent a message '''
+
+# the text of the log was copied into the variable lines
+
+result = {}
+ 
+for i in lines.split('\n'):
+    if i[11] == '<':
+        k = i[12:].split('>')[0]
+        result[k] = result.get(k, 0) + 1
+   
+for k,v in result.items():
+    print(k, " : ", v)
