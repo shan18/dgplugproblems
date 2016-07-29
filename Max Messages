@@ -1,0 +1,41 @@
+''' Take the 4 logs from the top of https://dgplug.org/irclogs/2016/  and then try to find for each nick ever present in
+those files, who spoke with whom highest number of times.
+
+Like: kushal spoke to avik 35 times
+      avik spoke to gkadam 55 times
+
+and like that, for all the nicks. '''
+
+# log1 contains the content of log https://www.dgplug.org/irclogs/2016/Logs-2016-06-19-15-00-introduction.txt
+# log2 contains the content of log https://www.dgplug.org/irclogs/2016/Logs-2016-06-20-15-00-second_session.txt
+# log3 contains the content of log https://www.dgplug.org/irclogs/2016/Logs-2016-06-20-15-00-session4.txt
+# log4 contains the content of log https://www.dgplug.org/irclogs/2016/Logs-2016-06-20-15-00-session5.txt
+
+lines = log1 + '\n' + log2 + '\n' + log3 + '\n' + log4
+ 
+result = {}
+ 
+for line in lines.splitlines():
+    if line[11] == '<':
+        key = line[12:].split('>')[0]
+        if key not in result.keys():
+            result[key] = {}
+           
+key = result.keys()
+           
+for line in lines.splitlines():
+    if line[11] == '<':
+        name = line[12:].split('>')[0]
+        msg = line[12:].split('>')[1]
+        for f in key:
+            if f in msg:
+                result[name][f] = result[name].get(f, 0) + 1
+           
+for k in key:
+    maxn, maxv = '', 0
+    for k1, v in result[k].items():
+        if v > maxv:
+            maxv = v
+            maxn = k1
+    if maxv != 0:
+        print(k, 'spoke to', maxn, maxv, 'times')
