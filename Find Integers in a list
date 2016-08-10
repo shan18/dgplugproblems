@@ -1,0 +1,7 @@
+# Write a function named find_numbers, which will take a list of int, and str, and floats and return a list of int(s)
+
+
+def find_numbers(li):
+    return [x for x in li if type(x) == int]
+    
+print(find_numbers([4, 5.65, "bleh", 7]))
