@@ -1,0 +1,8 @@
+#  Write a function find_py which will take a list as input (use the below mentioned list) and return the list of python files from it.
+# names = ['dist', 'MANIFEST.in', 'AUTHORS', '.gitignore', 'setup.py', '.travis.yml', 'README.rst', 'run.py', 'gpl.txt', '.coveragerc', '.git', 'LICENSE', 'appveyor.yml', 'tests', 'Makefile', 'requirements.txt', 'conf', 'mu.egg-info', 'mu', 'package', 'CONTRIBUTING.rst', 'docs']
+
+def find_py(li):
+    return([x for x in li if x.endswith('.py')])
+    
+names = ['dist', 'MANIFEST.in', 'AUTHORS', '.gitignore', 'setup.py', '.travis.yml', 'README.rst', 'run.py', 'gpl.txt', '.coveragerc', '.git', 'LICENSE', 'appveyor.yml', 'tests', 'Makefile', 'requirements.txt', 'conf', 'mu.egg-info', 'mu', 'package', 'CONTRIBUTING.rst', 'docs']
+print(find_py(names))
