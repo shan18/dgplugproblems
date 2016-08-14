@@ -1,0 +1,10 @@
+# Store the chatlogs of the desired day in a variable called lines.
+# Enter the nick of the person whose messages are required in a variable called nick.
+
+num = 1
+for line in lines.splitlines():
+    if line[11] == '<':
+        key = line[12:].split('>')[0]
+        if key == nick:
+            print(num, '.  ', line[12:].split('>')[1], sep='')
+            num += 1
