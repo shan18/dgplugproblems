@@ -1,3 +1,19 @@
 # Read from the file https://sayanchowdhury.dgplug.org/us-500.csv
 # Sort the file according to a particular field
 
+print("Input the field accoring to which the file has to be sorted:")
+print("1. first_name\n2. last_name\n3. company_name\n4. address\n5. city\n6. country\n7. state\n8. zip\n9. phone1\n10. phone2\n11. email\n12. web")
+
+n = int(input())
+
+rows = []
+with open("us-500.csv") as f:
+    for line in f.readlines():
+        rows.append(line.replace('\n','').replace('"', '').split(','))
+
+sortedlist = sorted(rows, key=lambda row: row[n], reverse=True)
+
+for f in sortedlist[:]:
+    for k in f[:]:
+        print("%20s" %k, end=' ')
+    print('\n')
