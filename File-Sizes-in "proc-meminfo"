@@ -1,0 +1,11 @@
+# Read from the file /proc/meminfo and print the size given in the first three lines in MB.
+
+i = 0
+ 
+with open("/proc/meminfo") as fobj:
+    for line in fobj:
+        if i == 3:
+            break
+        p = int(line.split(' ')[-2])/1024
+        print("%20s %15lf %2s" %(line.split(' ')[0], p, ' MB'))
+        i += 1
