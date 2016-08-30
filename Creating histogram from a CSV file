@@ -1,0 +1,71 @@
+# Take a input of a file
+# example something like this: https://paste.fedoraproject.org/417382/71423147/
+# and create a histogram
+
+# Your task is to create a histogram, where x-axis is the username and y-axis is the cummulative number of shares.
+# There can be multiple occurences of username in the same file.
+# Suppose he has two occurences, 12, 48 then the total i.e. 60
+ 
+
+with open('histo.txt') as fobj:
+    lines = fobj.read()
+    
+user, data = [], []
+for line in lines.splitlines():
+    user.append(line.split(',')[0])
+    data.append(int(line.split(',')[1]))
+    
+for i,u in enumerate(user):
+    if user.count(u)>1:
+        for j,f in enumerate(user):
+            if u==f and i!=j:
+                data[i] += data[j]
+                del(data[j])
+                del(user[j])
+               
+hist = []
+diff = []
+k = 0
+for d in data:
+    diff.append(max(data)-d)
+    hist.append([])
+    hist[k] = [' ' for x in range(max(data)-d) if d < max(data)]
+    for i in range(d):
+        hist[k].append('|')
+    k += 1
+    
+s = list(zip(*hist))
+
+out = []
+for z in range(len(data)):
+    out.append([])
+    if data[z] == max(data):
+        out[z].append([' ___ '])
+    for i in range(max(data)):
+        if s[i][z] == ' ':
+            out[z].append(['     '])
+            if s[i+1][z] == '|':
+                out[z].append([' ___ '])
+        elif s[i][z] == '|':
+            if i == 8:
+                out[z].append(['|___|'])
+            else:
+                out[z].append(['|   |'])
+
+for f in range(max(data)+1):
+    if f == 9:
+        print("%3d|__" %(max(data)-f+1), end='')
+        for i in range(len(data)):
+            print(out[i][f][0].center(len(user[i])+5, '_'), end='')
+        print()
+    else:
+        print("%3d|  " %(max(data)-f+1), end='')
+        for i in range(len(data)):
+            print(out[i][f][0].center(len(user[i])+5, ' '), end='')
+        print()
+    
+print("%6s" %(''), end = '')
+for u in user:
+    print(u.center(len(u)+5, ' '), end = '')
+
+print()
