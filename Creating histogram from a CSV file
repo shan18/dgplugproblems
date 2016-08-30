@@ -36,36 +36,38 @@ for d in data:
     
 s = list(zip(*hist))
 
+usrLen = [len(x) for x in user]
+
 out = []
 for z in range(len(data)):
     out.append([])
     if data[z] == max(data):
-        out[z].append([' ___ '])
+        out[z].append([' ' + ('_'*usrLen[z]) +' '])
     for i in range(max(data)):
         if s[i][z] == ' ':
-            out[z].append(['     '])
+            out[z].append([' ' + (' '*usrLen[z]) +' '])
             if s[i+1][z] == '|':
-                out[z].append([' ___ '])
+                out[z].append([' ' + ('_'*usrLen[z]) +' '])
         elif s[i][z] == '|':
             if i == 8:
-                out[z].append(['|___|'])
+                out[z].append(['|' + ('_'*usrLen[z]) +'|'])
             else:
-                out[z].append(['|   |'])
+                out[z].append(['|' + (' '*usrLen[z]) +'|'])
 
 for f in range(max(data)+1):
     if f == 9:
         print("%3d|__" %(max(data)-f+1), end='')
         for i in range(len(data)):
-            print(out[i][f][0].center(len(user[i])+5, '_'), end='')
+            print(out[i][f][0], end='')
         print()
     else:
         print("%3d|  " %(max(data)-f+1), end='')
         for i in range(len(data)):
-            print(out[i][f][0].center(len(user[i])+5, ' '), end='')
+            print(out[i][f][0], end='')
         print()
     
-print("%6s" %(''), end = '')
+print("%7s" %(''), end = '')
 for u in user:
-    print(u.center(len(u)+5, ' '), end = '')
+    print(u, end = '  ')
 
 print()
