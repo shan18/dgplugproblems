@@ -1,0 +1,59 @@
+# Takes a path as input and a charachter and returns a
+# output as all the file names starting with that charachter
+ 
+# When a charachter used with * it should return names with multiple occourences of that charchter
+# *p means names ending with p
+ 
+# When a charachter used with ? it should return names with single occourences of that charachter
+# x? means all those matches starting with x and x occouring only once.
+# ?x means all matches ending with x and x occouring only once.
+# ?x? means all matches with x in between occouring only once.
+
+
+import os
+import sys
+
+def check(ch):
+    if len(ch)==1:
+        return '#', ch, 'x'
+    elif len(ch)==3:
+        return '?', ch[1], 'm'
+    elif len(ch)==2:
+        if ch[0].isalpha():
+            return ch[1], ch[0], 'f'
+        else:
+            return ch[0], ch[1], 'l'
+
+def view_dir(ch, path='.'):
+    w, c, t = check(ch)
+    names = os.listdir(path)
+    if w == '#':
+        for name in names:
+            if name[0] == c:
+                print(name)
+    elif w == '*':
+        if t == 'f':
+            for name in names:
+                print(name)
+                if name[0] == c:
+                    print(name)
+        elif t == 'l':
+            for name in names:
+                if name[-4] == c:
+                    print(name)
+    elif w == '?':
+        if t == 'f':
+            for name in names:
+                if name[0] == c and c not in name[1:]:
+                    print(name)
+        elif t == 'l':
+            for name in names:
+                if name[-4] == c and c not in name[:-4]:
+                    print(name)
+        elif t == 'm':
+            for name in names:
+                p = list(name)
+                if c in name[1:-4] and p.count(c)==1:
+                    print(name)
+            
+view_dir(sys.argv[1], sys.argv[2])
